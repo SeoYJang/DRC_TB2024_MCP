@@ -24,7 +24,6 @@ DRsimSiPMHit::DRsimSiPMHit(const DRsimSiPMHit &right)
   fPhotons = right.fPhotons;
   fSiPMpos = right.fSiPMpos;
   fMuduleNum = right.fMuduleNum;
-  fisLeft = right.fisLeft;
   fTowerXY = right.fTowerXY;
   fInnerR = right.fInnerR;
   fTowerH = right.fTowerH;
@@ -38,7 +37,6 @@ const DRsimSiPMHit& DRsimSiPMHit::operator=(const DRsimSiPMHit &right) {
   fPhotons = right.fPhotons;
   fSiPMpos = right.fSiPMpos;
   fMuduleNum = right.fMuduleNum;
-  fisLeft = right.fisLeft;
   fTowerXY = right.fTowerXY;
   fInnerR = right.fInnerR;
   fTowerH = right.fTowerH;

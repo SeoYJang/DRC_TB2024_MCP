@@ -50,10 +50,10 @@ int main(int argc, char** argv) {
   G4VModularPhysicsList* physicsList = new FTFP_BERT;
   G4OpticalPhysics* opticalPhysics = new G4OpticalPhysics();
   physicsList->RegisterPhysics(opticalPhysics);
-  opticalPhysics->Configure(kCerenkov, true);
-  opticalPhysics->Configure(kScintillation, true);
-  opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true);
-  opticalPhysics->SetTrackSecondariesFirst(kScintillation, true);
+  opticalPhysics->Configure(kCerenkov, false);
+  opticalPhysics->Configure(kScintillation, false);
+  opticalPhysics->SetTrackSecondariesFirst(kCerenkov, false);
+  opticalPhysics->SetTrackSecondariesFirst(kScintillation, false);
   runManager->SetUserInitialization(physicsList);
 
   // User action initialization

@@ -18,6 +18,8 @@ public:
 private:
   std::vector<G4double> fXFilter;
   std::vector<G4double> fYFilter;
+  G4int fNumx;
+  G4int fNumy;
 };
 
 #endif

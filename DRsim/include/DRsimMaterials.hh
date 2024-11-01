@@ -27,6 +27,7 @@ private:
   G4Material* fW;
   G4Material* fPb;
   G4Material* fFe;
+  G4Material* fCuZn37;
   G4Material* fSi;
   G4Material* fAl;
   G4Material* fGlass;
@@ -34,6 +35,8 @@ private:
   G4Material* fMirror;
   G4Material* fBlackpaint;
   G4OpticalSurface* fSiPMSurf;
+  G4OpticalSurface* fPMTSurf;
+  G4OpticalSurface* fMCPPMTSurf;
   G4OpticalSurface* fFilterSurf;
   G4OpticalSurface* fMirrorSurf;
 };

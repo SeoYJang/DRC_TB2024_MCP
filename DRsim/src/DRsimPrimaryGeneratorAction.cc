@@ -34,8 +34,7 @@ void DRsimPrimaryGeneratorAction::initPtcGun() {
   fTheta = -0.01111;
   fPhi = 0.;
   fRandX = 10.*mm;
-  fRandZ = 10.*mm;
-  fX_0 = 0.;
+  fRandY = 10.*mm;
   fY_0 = 0.;
   fZ_0 = 0.;
   fParticleGun = new G4ParticleGun(1);
@@ -80,8 +79,8 @@ void DRsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* event) {
   }
 
   G4double x = (G4UniformRand()-0.5)*fRandX + fX_0;
-  G4double y = 0 + fY_0;
-  G4double z = (G4UniformRand()-0.5)*fRandZ + fZ_0;
+  G4double y = (G4UniformRand()-0.5)*fRandY + fY_0;
+  G4double z = fZ_0;
   fOrg.set(x,y,z);
 
   fParticleGun->SetParticlePosition(fOrg); // http://www.apc.univ-paris7.fr/~franco/g4doxy/html/classG4VPrimaryGenerator.html
@@ -126,7 +125,7 @@ void DRsimPrimaryGeneratorAction::DefineCommands() {
   randxCmd.SetParameterName("randx",true);
   randxCmd.SetDefaultValue("0.");
 
-  G4GenericMessenger::Command& randzCmd = fMessenger->DeclareMethodWithUnit("randz","mm",&DRsimPrimaryGeneratorAction::SetRandZ,"z width of beam");
-  randzCmd.SetParameterName("randz",true);
-  randzCmd.SetDefaultValue("0.");
+  G4GenericMessenger::Command& randyCmd = fMessenger->DeclareMethodWithUnit("randy","mm",&DRsimPrimaryGeneratorAction::SetRandY,"y width of beam");
+  randyCmd.SetParameterName("randy",true);
+  randyCmd.SetDefaultValue("0.");
 }

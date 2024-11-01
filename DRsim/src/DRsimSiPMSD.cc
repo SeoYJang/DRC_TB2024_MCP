@@ -9,7 +9,7 @@
 
 using namespace std;
 
-DRsimSiPMSD::DRsimSiPMSD(const G4String& name, const G4String& hitsCollectionName, const G4int& isLeft, DRsimInterface::DRsimModuleProperty ModuleProp)
+DRsimSiPMSD::DRsimSiPMSD(const G4String& name, const G4String& hitsCollectionName, DRsimInterface::DRsimModuleProperty ModuleProp)
 : G4VSensitiveDetector(name), fHitCollection(0), fHCID(-1), fWavBin(60), fTimeBin(700),
 fModuleNum(-1), fWavlenStart(900.), fWavlenEnd(300.), fTimeStart(0.), fTimeEnd(70.)
 {
@@ -19,7 +19,6 @@ fModuleNum(-1), fWavlenStart(900.), fWavlenEnd(300.), fTimeStart(0.), fTimeEnd(7
 
   fModuleNum = ModuleProp.ModuleNum;
   fTowerXY = ModuleProp.towerXY;
-  fisLeft = isLeft;
 }
 
 DRsimSiPMSD::~DRsimSiPMSD() {}
@@ -50,7 +49,7 @@ G4bool DRsimSiPMSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
     //        << (*fHitCollection)[i]->GetModuleNum() << " "
     //        << G4endl;
     
-    if ( (*fHitCollection)[i]->GetSiPMnum() == SiPMnum && (*fHitCollection)[i]->GetModuleNum() == fModuleNum && (*fHitCollection)[i]->GetisLeft() == fisLeft) {
+    if ( (*fHitCollection)[i]->GetSiPMnum() == SiPMnum && (*fHitCollection)[i]->GetModuleNum() == fModuleNum ) {
       hit = (*fHitCollection)[i];
       break;
     }
@@ -60,7 +59,6 @@ G4bool DRsimSiPMSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
     hit = new DRsimSiPMHit(fWavBin,fTimeBin);
     hit->SetSiPMnum(SiPMnum);
     hit->SetModuleNum(fModuleNum);
-    hit->SetisLeft(fisLeft);
     hit->SetTowerXY(fTowerXY);
     hit->SetSiPMXY(findSiPMXY(SiPMnum,fTowerXY));
     hit->SetSiPMpos(step->GetPostStepPoint()->GetTouchableHandle()->GetHistory()->GetTopTransform().Inverse().TransformPoint(G4ThreeVector(0.,0.,0.)));
@@ -115,8 +113,8 @@ DRsimInterface::hitRange DRsimSiPMSD::findTimeRange(G4double stepTime) {
 }
 
 DRsimInterface::hitXY DRsimSiPMSD::findSiPMXY(G4int SiPMnum, DRsimInterface::hitXY towerXY) {
-  int x = SiPMnum/(towerXY.second*2-1)*2 + (SiPMnum%(towerXY.second*2-1))/towerXY.second;
-  int y = (SiPMnum%(towerXY.second*2-1))%towerXY.second;
+  int x = SiPMnum/towerXY.second;
+  int y = SiPMnum%towerXY.second;
 
   return std::make_pair(x,y);
 }

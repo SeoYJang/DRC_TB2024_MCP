@@ -30,7 +30,7 @@ public:
   void SetZ0(G4double z0) { fZ_0 = z0; }
 
   void SetRandX(G4double randx) { fRandX = randx; }
-  void SetRandZ(G4double randz) { fRandZ = randz; }
+  void SetRandY(G4double randy) { fRandY = randy; }
 
   static G4ThreadLocal int sIdxEvt;
   static int sNumEvt;
@@ -58,7 +58,7 @@ private:
   G4double fTheta;
   G4double fPhi;
   G4double fRandX;
-  G4double fRandZ;
+  G4double fRandY;
 
   G4double fX_0;
   G4double fY_0;

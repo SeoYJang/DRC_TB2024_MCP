@@ -12,7 +12,7 @@
 
 class DRsimSiPMSD : public G4VSensitiveDetector {
 public:
-  DRsimSiPMSD(const G4String& name, const G4String& hitsCollectionName, const G4int& isLeft, DRsimInterface::DRsimModuleProperty ModuleProp);
+  DRsimSiPMSD(const G4String& name, const G4String& hitsCollectionName, DRsimInterface::DRsimModuleProperty ModuleProp);
   virtual ~DRsimSiPMSD();
 
   virtual void Initialize(G4HCofThisEvent* HCE);
@@ -32,7 +32,6 @@ private:
   G4float fTimeStep;
 
   G4int fModuleNum;
-  G4int fisLeft;
   DRsimInterface::hitXY fTowerXY;
 
   G4double wavToE(G4double wav) { return h_Planck*c_light/wav; }

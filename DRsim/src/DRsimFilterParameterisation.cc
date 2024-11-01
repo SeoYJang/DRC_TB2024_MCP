@@ -1,3 +1,4 @@
+#include "DRsimInterface.h"
 #include "DRsimFilterParameterisation.hh"
 #include "DRsimCellParameterisation.hh"
 
@@ -11,15 +12,18 @@
 DRsimFilterParameterisation::DRsimFilterParameterisation(const G4int numx, const G4int numy, const G4double moduleH, const G4double moduleW)
 : G4VPVParameterisation()
 {
-  for (G4int k = 0; k < numx; k++ ) {
-    for (G4int j = 0; j < numy; j++ ) {
+  for ( G4int copyNo = 0; copyNo < numx*numy; copyNo++ ) {
 
-      if (k%2!=0 && j==numy-1) break;
-      fXFilter.push_back( -moduleH*mm/2 + k*1.22*mm + 0.61*mm );
-      if (k%2==0) {fYFilter.push_back( -moduleW*mm/2 + j*1.35*mm + 0.675*mm );}
-      else {fYFilter.push_back( -moduleW*mm/2 + j*1.35*mm + 1.35*mm );}
+    G4int column = copyNo / numy;
+    G4int row = copyNo % numy;
+
+    if ( !DRsimInterface::IsCerenkov(column,row) ) {
+      fXFilter.push_back( -moduleH*mm/2 + column*1.5*mm + 0.75*mm );
+      fYFilter.push_back( -moduleW*mm/2 + row*1.5*mm + 0.75*mm );
     }
   }
+  fNumx = numx;
+  fNumy = numy;
 }
 
 DRsimFilterParameterisation::~DRsimFilterParameterisation() {}
