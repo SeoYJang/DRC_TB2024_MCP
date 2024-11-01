@@ -1,2 +1,0 @@
-# DRC_TB2024_MCP
-TB2024 MCP Simulation
